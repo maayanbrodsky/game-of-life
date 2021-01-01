@@ -1,7 +1,29 @@
-from upload_277 import intialize_board
+from upload_277 import initialize_board, determine_cell, check_neighbor, check_cell, generation
+
 
 def test_initialize_board():
-    assert intialize_board(2) == [[0, 0], [0, 0]]
+    board = initialize_board(4)
+    assert len(board) == 4
+    assert len(board[0]) == 4
 
 
-def test_
+def test_determine_cell():
+    board = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    assert determine_cell(board, 1, 1, 4) == 0
+
+
+def test_check_neighbor():
+    board = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    assert check_neighbor(board, 1, 1, (0, 1)) == 0
+
+
+def test_check_cell():
+    board = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    assert check_cell(board, 1, 1) == 0
+
+
+def test_generation():
+    board = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    assert generation(board) == [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+
