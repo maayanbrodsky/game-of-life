@@ -22,22 +22,19 @@ def determine_cell(board: List[List[int]], x: int, y: int, counter) -> int:
             return 1
         if counter < 2 or counter > 3:
             return 0
-        else:
-            if counter == 3:
-                return 1
-            else:
-                return 0
+    elif counter == 3:
+        return 1
+    else:
+        return 0
 
 
 def check_neighbor(board: List[List[int]], x: int, y: int, neighbor: Tuple[int, int]) -> int:
     """Takes the board, position parameters, and tuple for a relative neighbor position.
     Returns 1 if neighbor is alive 0 if dead."""
     try:
-        if board[x + neighbor[0]][y + neighbor[1]] == 1:
-            return 1
+        return board[x + neighbor[0]][y + neighbor[1]]
     except IndexError:
-        pass
-    return 0
+        return 0
 
 
 def check_cell(board: List[List[int]], x: int, y: int) -> int:
