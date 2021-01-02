@@ -30,7 +30,5 @@ def test_generation():
 
 
 def test_print_board():
-    board = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
     board = [[0, 1], [0, 0]]
-    assert print_board(board) == """  
- ░"""
+    assert print_board(board) == '\n ░\n  \n'
