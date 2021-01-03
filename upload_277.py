@@ -1,6 +1,7 @@
 from random import randint
 import sys
 from typing import List, Tuple
+import re
 
 
 NEIGHBORS: List[Tuple[int, int]] = [(-1, 1), (0, 1), (1, 1),
@@ -8,21 +9,29 @@ NEIGHBORS: List[Tuple[int, int]] = [(-1, 1), (0, 1), (1, 1),
                                     (-1, -1), (0, -1), (1, -1)]
 
 
+def get_rules(rules: str) -> List[int]:
+    """Takes formatted string of rules, returns a list of the rules as integers."""
+    rules = re.findall(r'B(\d)\/S(\d)(\d)', rules)
+    int_rules: List[int] = [int(rule) for rule in rules[0]]
+    return int_rules
+
+
 def initialize_board(size: int) -> List[List[int]]:
-    """Takes an int for size and returns a board (list of lists) accordingly."""
+    """Takes an int for size and returns a board (list of lists) accordingly.
+    Complexity: O(n^2)"""
     board = [[randint(0, 1) for _i in range(size)] for _i in range(size)]
     return board
 
 
-def determine_cell(board: List[List[int]], x: int, y: int, counter) -> int:
+def determine_cell(board: List[List[int]], x: int, y: int, counter, rules) -> int:
     """Takes the board, position parameters, and the number of living neighbors.
-    Returns 1 if cell is alive 0 if dead."""
+    Returns 1 if cell is alive 0 if dead. Complexity: O(1)"""
     if board[x][y] == 1:
-        if 2 <= counter <= 3:
+        if rules[1] <= counter <= rules[2]:
             return 1
-        if counter < 2 or counter > 3:
+        if counter < rules[1] or counter > rules[2]:
             return 0
-    elif counter == 3:
+    elif counter == rules[0]:
         return 1
     else:
         return 0
@@ -47,13 +56,13 @@ def check_cell(board: List[List[int]], x: int, y: int) -> int:
     return counter
 
 
-def generation(board: List[List[int]]) -> List[List[int]]:
+def generation(board: List[List[int]], rules) -> List[List[int]]:
     """Takes a board and returns another board according to the generation rules."""
     tng = [[0 for _i in range(len(board))] for _i in range(len(board))]
     for x, line in enumerate(board):
         for y, cell in enumerate(line):
             counter = check_cell(board, x, y)
-            state = determine_cell(board, x, y, counter)
+            state = determine_cell(board, x, y, counter, rules)
             tng[x][y] = state
     return tng
 
@@ -72,17 +81,21 @@ def print_board(board: List[List[int]]) -> str:
     return printout
 
 
-def run_game(generations: str, size: str):
-    """Takes number of generations and board size and runs the game."""
+def run_game(generations: str, size: str, rule: str):
+    """Takes number of generations, board size, and rules and runs the game."""
     generations = int(generations)
     size = int(size)
+    rules = get_rules(rule)
     board = initialize_board(size)
     print('-' * size)
     for _i in range(generations):
-        board = generation(board)
+        board = generation(board, rules)
         print(print_board(board))
         print('-' * size)
 
 
 if __name__ == '__main__':
-    run_game(sys.argv[1], sys.argv[2])
+    if len(sys.argv) == 4:
+        run_game(sys.argv[1], sys.argv[2], sys.argv[3])
+    if len(sys.argv) == 3:
+        run_game(sys.argv[1], sys.argv[2], 'B3/S23')
