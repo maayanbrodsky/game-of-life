@@ -1,6 +1,6 @@
+from random import randint
 import re
 import sys
-from random import randint
 from typing import List, Tuple
 
 
@@ -60,7 +60,7 @@ def generation(board: List[List[int]], rules) -> List[List[int]]:
     """Takes a board and returns another board according to the generation rules."""
     tng = [[0 for _i in range(len(board))] for _i in range(len(board))]
     for x, line in enumerate(board):
-        for y, cell in enumerate(line):
+        for y, _cell in enumerate(line):
             counter = check_cell(board, x, y)
             state = determine_cell(board, x, y, counter, rules)
             tng[x][y] = state
@@ -72,7 +72,7 @@ def print_board(board: List[List[int]]) -> str:
     printout = ''
     for x, line in enumerate(board):
         printout += '\n'
-        for y, cell in enumerate(line):
+        for y, _cell in enumerate(line):
             if board[x][y] == 1:
                 printout += '░'
             else:

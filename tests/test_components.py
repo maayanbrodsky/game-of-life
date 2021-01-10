@@ -1,4 +1,4 @@
-from upload_277 import initialize_board, determine_cell, check_neighbor, check_cell, generation, print_board
+from upload_277 import check_cell, check_neighbor, determine_cell, generation, initialize_board, print_board
 
 
 def test_initialize_board():
