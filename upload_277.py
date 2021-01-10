@@ -10,7 +10,7 @@ NEIGHBORS: List[Tuple[int, int]] = [(-1, 1), (0, 1), (1, 1),
 
 
 def get_rules(rules: str) -> List[int]:
-    """Takes formatted string of rules, returns a list of the rules as integers."""
+    """Takes formatted string of rules, returns a list of the rules as integers. Complexity: O(1)"""
     rules = re.findall(r'B(\d)\/S(\d)(\d)', rules)
     int_rules: List[int] = [int(rule) for rule in rules[0]]
     return int_rules
@@ -39,7 +39,7 @@ def determine_cell(board: List[List[int]], x: int, y: int, counter, rules) -> in
 
 def check_neighbor(board: List[List[int]], x: int, y: int, neighbor: Tuple[int, int]) -> int:
     """Takes the board, position parameters, and tuple for a relative neighbor position.
-    Returns 1 if neighbor is alive 0 if dead."""
+    Returns 1 if neighbor is alive 0 if dead. Complexity: O(1)"""
     try:
         return board[x + neighbor[0]][y + neighbor[1]]
     except IndexError:
@@ -48,7 +48,7 @@ def check_neighbor(board: List[List[int]], x: int, y: int, neighbor: Tuple[int, 
 
 def check_cell(board: List[List[int]], x: int, y: int) -> int:
     """Takes a board and position parameters.
-    Returns an integer with the number of living neighboring cells."""
+    Returns an integer with the number of living neighboring cells. Complexity: O(1)"""
     counter = 0
     if board[x][y] == 1:
         for neighbor in NEIGHBORS:
@@ -57,7 +57,7 @@ def check_cell(board: List[List[int]], x: int, y: int) -> int:
 
 
 def generation(board: List[List[int]], rules) -> List[List[int]]:
-    """Takes a board and returns another board according to the generation rules."""
+    """Takes a board and returns another board according to the generation rules. Complexity: O(N)"""
     tng = [[0 for _i in range(len(board))] for _i in range(len(board))]
     for x, line in enumerate(board):
         for y, _cell in enumerate(line):
@@ -68,7 +68,7 @@ def generation(board: List[List[int]], rules) -> List[List[int]]:
 
 
 def print_board(board: List[List[int]]) -> str:
-    """Takes the board. Returns a formatted printout string of the board."""
+    """Takes the board. Returns a formatted printout string of the board. Complexity: O(N^2)"""
     printout = ''
     for x, line in enumerate(board):
         printout += '\n'
@@ -82,7 +82,7 @@ def print_board(board: List[List[int]]) -> str:
 
 
 def run_game(generations: str, size: str, rule: str):
-    """Takes number of generations, board size, and rules and runs the game."""
+    """Takes number of generations, board size, and rules and runs the game. Complexity: O(N^2)"""
     generations = int(generations)
     size = int(size)
     rules = get_rules(rule)
