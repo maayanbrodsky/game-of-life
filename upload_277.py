@@ -1,7 +1,7 @@
-from random import randint
-import sys
-from typing import List, Tuple
 import re
+import sys
+from random import randint
+from typing import List, Tuple
 
 
 NEIGHBORS: List[Tuple[int, int]] = [(-1, 1), (0, 1), (1, 1),
